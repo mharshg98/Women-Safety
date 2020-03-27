@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg2"
+    android:orientation="vertical"
+    tools:context=".completeProfile">
+
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="15dp"
+        android:background="@color/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
+
+            <ImageView
+                android:id="@+id/imageView_back"
+                android:layout_width="42dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_chevron_left_black_24dp" />
+            <TextView
+                android:id="@+id/tilte"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Complete Your Profile"
+                android:textColor="#000000"
+                android:textSize="25dp"
+                android:layout_marginLeft="30dp"
+
+                />
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:layout_marginTop="10dp"
+        android:textSize="15dp"
+        android:inputType="textMultiLine"
+        android:text="* All the fields are mandatory , please fill them with full attention. you can change them by going into app setting"
+        />
+
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginTop="10dp"
+    >
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/profilepicture"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:civ_border_color="#EEEEEE"
+        app:civ_border_width="4dp"
+        app:civ_shadow="true"
+        app:civ_shadow_radius="10"
+        app:civ_shadow_color="#8BC34A"
+        android:src="@drawable/ic_account_circle_black_24dp"
+        android:layout_gravity="bottom|center_horizontal"
+
+        />
+    <ImageView
+        android:id="@+id/changeprofilepicture"
+        android:layout_marginLeft="110dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_edit_black_24dp"
+
+        />
+
+</RelativeLayout>
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:layout_marginTop="10dp"
+        android:textSize="15dp"
+        android:inputType="textMultiLine"
+        android:text="* Please fill the information of your guardian according to preference,because for your security this information are used "
+
+        />
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="5dp"
+        app:cardCornerRadius="10dp"
+
+        android:layout_margin="10dp"
+        android:background="#fff"
+        >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Guardian 1"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:textSize="15dp"
+            android:textColor="#000"/>
+
+    <EditText
+        android:id="@+id/guardian1name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:inputType="text"
+        android:background="#f0f0f4"
+        android:textColor="#000"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:padding="12dp"
+        android:drawablePadding="16dp"
+        />
+
+    <EditText
+        android:id="@+id/guardian1Relation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Relation"
+        android:inputType="text"
+        android:background="#f0f0f4"
+        android:textColor="#000"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:padding="12dp"
+        android:drawablePadding="16dp"
+        />
+
+    <EditText
+        android:id="@+id/guardian1phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Phone Number"
+        android:inputType="phone"
+        android:background="#f0f0f4"
+        android:textColor="#000"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:padding="12dp"
+        android:drawablePadding="16dp"
+        />
+
+    <EditText
+        android:id="@+id/guardia1email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:inputType="text"
+        android:background="#f0f0f4"
+        android:textColor="#000"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:padding="12dp"
+        android:drawablePadding="16dp"
+        />
+
+</LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="5dp"
+        app:cardCornerRadius="10dp"
+
+        android:layout_margin="10dp"
+        android:background="#fff"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Guardian 2"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+
+                android:textSize="15dp"
+                android:textColor="#000"/>
+
+            <EditText
+                android:id="@+id/guardian2name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Name"
+                android:inputType="text"
+                android:background="#f0f0f4"
+                android:textColor="#000"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:padding="12dp"
+                android:drawablePadding="16dp"
+                />
+
+            <EditText
+                android:id="@+id/guardian2Relation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Relation"
+                android:inputType="text"
+                android:background="#f0f0f4"
+                android:textColor="#000"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:padding="12dp"
+                android:drawablePadding="16dp"
+                />
+
+            <EditText
+                android:id="@+id/guardian2phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Phone Number"
+                android:inputType="phone"
+                android:background="#f0f0f4"
+                android:textColor="#000"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:padding="12dp"
+                android:drawablePadding="16dp"
+                />
+
+            <EditText
+                android:id="@+id/guardia2email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:inputType="text"
+                android:background="#f0f0f4"
+                android:textColor="#000"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:padding="12dp"
+                android:drawablePadding="16dp"
+                />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="5dp"
+        app:cardCornerRadius="10dp"
+
+        android:layout_margin="10dp"
+        android:background="#fff"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Guardian 3"
+                android:textSize="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+
+                android:textColor="#000"/>
+
+            <EditText
+                android:id="@+id/guardian3name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Name"
+                android:inputType="text"
+                android:background="#f0f0f4"
+                android:textColor="#000"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:padding="12dp"
+                android:drawablePadding="16dp"
+                />
+
+            <EditText
+                android:id="@+id/guardian3Relation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Relation"
+                android:inputType="text"
+                android:background="#f0f0f4"
+                android:textColor="#000"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:padding="12dp"
+                android:drawablePadding="16dp"
+                />
+
+            <EditText
+                android:id="@+id/guardian3phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Phone Number"
+                android:inputType="phone"
+                android:background="#f0f0f4"
+                android:textColor="#000"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:padding="12dp"
+                android:drawablePadding="16dp"
+                />
+
+            <EditText
+                android:id="@+id/guardia3email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:inputType="text"
+                android:background="#f0f0f4"
+                android:textColor="#000"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:padding="12dp"
+                android:drawablePadding="16dp"
+                />
+
+        </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <TextView
+                android:id="@+id/submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginRight="70dp"
+
+                android:textAlignment="center"
+                android:padding="14dp"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:text="Submit"
+                android:textSize="16dp"
+                android:textColor="#fff"
+                />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
