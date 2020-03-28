@@ -137,6 +137,8 @@ public class signupActivity extends AppCompatActivity {
         child1.setValue("NO");
 
 
+
+
         progressBar.setVisibility(View.INVISIBLE);
 
         Intent i =new Intent(signupActivity.this,completeProfile.class);

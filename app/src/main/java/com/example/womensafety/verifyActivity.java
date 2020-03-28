@@ -34,6 +34,8 @@ public class verifyActivity extends AppCompatActivity {
     private String verificationId;
     private EditText editText;
     private FirebaseAuth mAuth;
+    FirebaseDatabase database;
+
 
     private CountDownTimer countDownTimer;
     @Override
@@ -44,7 +46,7 @@ public class verifyActivity extends AppCompatActivity {
         final String phoneno="+91"+nphoneno;
         System.out.print(phoneno);
 
-
+        database=FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         resendotp=findViewById(R.id.resendotpbtn);
         resendotp.setVisibility(View.INVISIBLE);
@@ -103,11 +105,9 @@ public class verifyActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-
-
-                        Intent i= new Intent(verifyActivity.this, signupActivity.class);
-                        startActivity(i);
-                        finish();
+                    sendingotp.cancel();
+                    verifyingotp.cancel();
+                 check();
 
 
                 }
@@ -118,6 +118,46 @@ public class verifyActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void check() {
+        final ProgressDialog progressDialog =new ProgressDialog(this);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setMessage("checking");
+        progressDialog.show();
+        String phonenumber=mAuth.getCurrentUser().getPhoneNumber();
+        DatabaseReference databaseUserRegister=database.getReferenceFromUrl("https://womensafety-20b61.firebaseio.com/user");
+        DatabaseReference child=databaseUserRegister.child(phonenumber.substring(1));
+
+        child.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.child("Profile Updates").getValue(String.class).equals("YES")){
+                    progressDialog.cancel();
+                    Intent i =new Intent(verifyActivity.this,dashboardActivity.class);
+                    startActivity(i);
+                    finish();
+                }
+                else{
+
+                    progressDialog.cancel();
+                    Intent i =new Intent(verifyActivity.this,completeProfile.class);
+                    startActivity(i);
+                    finish();
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
     }
 
     private void sendVerificationCode(String phoneno) {

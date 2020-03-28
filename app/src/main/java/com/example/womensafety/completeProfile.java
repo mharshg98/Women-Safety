@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -114,14 +115,16 @@ public class completeProfile extends AppCompatActivity {
         final ProgressDialog progressDialog=new ProgressDialog(this);
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setMessage("Uploading Information");
-
+        progressDialog.show();
         if(filePath!=null){
-progressDialog.show();
-            if(!TextUtils.isEmpty(nameg1.getText()) && !TextUtils.isEmpty(nameg2.getText()) && !TextUtils.isEmpty(nameg3.getText()) && !TextUtils.isEmpty(relationg1.getText()) && !TextUtils.isEmpty(relationg2.getText()) && !TextUtils.isEmpty(relationg3.getText()) && !TextUtils.isEmpty(phoneg1.getText()) && !TextUtils.isEmpty(phoneg2.getText()) && !TextUtils.isEmpty(phoneg3.getText()) && !TextUtils.isEmpty(emailg1.getText()) && !TextUtils.isEmpty(emailg3.getText()) && !TextUtils.isEmpty(emailg2.getText())){
-                System.out.println("https://womensafety-20b61.firebaseio.com/user/"+"+"+phonenumber);
-                final DatabaseReference databaseReference=database.getReferenceFromUrl("https://womensafety-20b61.firebaseio.com/user/+918223873564");
 
-                        DatabaseReference child1=databaseReference.child("Guardian1");
+
+            if(!TextUtils.isEmpty(nameg1.getText()) && !TextUtils.isEmpty(nameg2.getText()) && !TextUtils.isEmpty(nameg3.getText()) && !TextUtils.isEmpty(relationg1.getText()) && !TextUtils.isEmpty(relationg2.getText()) && !TextUtils.isEmpty(relationg3.getText()) && !TextUtils.isEmpty(phoneg1.getText()) && !TextUtils.isEmpty(phoneg2.getText()) && !TextUtils.isEmpty(phoneg3.getText()) && !TextUtils.isEmpty(emailg1.getText()) && !TextUtils.isEmpty(emailg3.getText()) && !TextUtils.isEmpty(emailg2.getText())){
+
+                DatabaseReference databaseUserRegister=database.getReferenceFromUrl("https://womensafety-20b61.firebaseio.com/user");
+                DatabaseReference child=databaseUserRegister.child(phonenumber.substring(1));
+
+                        DatabaseReference child1=child.child("Guardian1");
                         DatabaseReference child2=child1.child("Name");
                         child2.setValue(nameg1.getText().toString());
 
@@ -134,7 +137,7 @@ progressDialog.show();
                         child2=child1.child("Email");
                         child2.setValue(emailg1.getText().toString());
 
-                        DatabaseReference child3=databaseReference.child("Guardian2");
+                        DatabaseReference child3=child.child("Guardian2");
                         DatabaseReference child4=child3.child("Name");
                         child4.setValue(nameg2.getText().toString());
 
@@ -148,7 +151,7 @@ progressDialog.show();
                         child4.setValue(emailg2.getText().toString());
 
 
-                        DatabaseReference child5=databaseReference.child("Guardian3");
+                        DatabaseReference child5=child.child("Guardian3");
                         DatabaseReference child6=child5.child("Name");
                         child6.setValue(nameg3.getText().toString());
 
@@ -161,8 +164,29 @@ progressDialog.show();
                         child6=child5.child("Email");
                         child6.setValue(emailg3.getText().toString());
 
+                        child6=child.child("Profile Updates");
+                        child6.setValue("YES");
 
 
+
+
+                        child.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.child("Profile Updates").getValue(String.class).equals("YES")){
+                                    progressDialog.cancel();
+                                    Intent i =new Intent(completeProfile.this,dashboardActivity.class);
+                                    startActivity(i);
+                                    finish();
+                                }
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
 
 
 
@@ -173,14 +197,15 @@ progressDialog.show();
             }
             else{
                 Toast.makeText(this,"Please Enter All The Entries",Toast.LENGTH_LONG).show();
-
+progressDialog.cancel();
             }
 
         }
         else{
             System.out.println("upload image first");
+        progressDialog.cancel();
         }
-        progressDialog.dismiss();
+
     }
 
     private void chooseImage() {
@@ -251,9 +276,11 @@ System.out.println("hello");
         while (!urlTask.isSuccessful());
         final Uri downloadUrl = urlTask.getResult();
         System.out.println(downloadUrl.toString());
-        refdatabase = database.getReferenceFromUrl("https://womensafety-20b61.firebaseio.com/user/+918223873564");
 
-        DatabaseReference child1=refdatabase.child("Profile Image URL");
+        DatabaseReference databaseUserRegister=database.getReferenceFromUrl("https://womensafety-20b61.firebaseio.com/user");
+        DatabaseReference child=databaseUserRegister.child(phonenumber.substring(1));
+
+        DatabaseReference child1=child.child("Profile Image URL");
         child1.setValue(downloadUrl.toString());
 
 
