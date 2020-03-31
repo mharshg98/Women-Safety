@@ -48,9 +48,9 @@ public class completeProfile extends AppCompatActivity {
     CircularImageView profileImage;
     String phonenumber;
 
-    EditText nameg1,relationg1,phoneg1,emailg1;
-    EditText nameg2,relationg2,phoneg2,emailg2;
-    EditText nameg3,relationg3,phoneg3,emailg3;
+    EditText nameg1, relationg1, phoneg1, emailg1;
+    EditText nameg2, relationg2, phoneg2, emailg2;
+    EditText nameg3, relationg3, phoneg3, emailg3;
     TextView submit;
 
     @Override
@@ -62,30 +62,29 @@ public class completeProfile extends AppCompatActivity {
         storageReference = storage.getReference();
         database = FirebaseDatabase.getInstance();
 
-        nameg1=findViewById(R.id.guardian1name);
-        nameg2=findViewById(R.id.guardian2name);
-        nameg3=findViewById(R.id.guardian3name);
+        nameg1 = findViewById(R.id.guardian1name);
+        nameg2 = findViewById(R.id.guardian2name);
+        nameg3 = findViewById(R.id.guardian3name);
 
-        relationg1=findViewById(R.id.guardian1Relation);
-        relationg2=findViewById(R.id.guardian2Relation);
-        relationg3=findViewById(R.id.guardian3Relation);
+        relationg1 = findViewById(R.id.guardian1Relation);
+        relationg2 = findViewById(R.id.guardian2Relation);
+        relationg3 = findViewById(R.id.guardian3Relation);
 
-        phoneg1=findViewById(R.id.guardian1phone);
-        phoneg2=findViewById(R.id.guardian2phone);
-        phoneg3=findViewById(R.id.guardian3phone);
+        phoneg1 = findViewById(R.id.guardian1phone);
+        phoneg2 = findViewById(R.id.guardian2phone);
+        phoneg3 = findViewById(R.id.guardian3phone);
 
-        emailg1=findViewById(R.id.guardia1email);
-        emailg2=findViewById(R.id.guardia2email);
-        emailg3=findViewById(R.id.guardia3email);
+        emailg1 = findViewById(R.id.guardia1email);
+        emailg2 = findViewById(R.id.guardia2email);
+        emailg3 = findViewById(R.id.guardia3email);
 
-        submit=findViewById(R.id.submit);
-
+        submit = findViewById(R.id.submit);
 
 
         auth = FirebaseAuth.getInstance();
-        phonenumber=auth.getCurrentUser().getPhoneNumber();
+        phonenumber = auth.getCurrentUser().getPhoneNumber();
         System.out.println(phonenumber);
-        profileImage = (CircularImageView)findViewById(R.id.profilepicture);
+        profileImage = (CircularImageView) findViewById(R.id.profilepicture);
         profileImage.setBorderWidth(10);
 // Add Shadow with default param
         profileImage.addShadow();
@@ -93,7 +92,7 @@ public class completeProfile extends AppCompatActivity {
         profileImage.setShadowRadius(20);
         profileImage.setShadowColor(Color.RED);
 
-        imageView=(ImageView)findViewById(R.id.changeprofilepicture);
+        imageView = (ImageView) findViewById(R.id.changeprofilepicture);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,101 +111,94 @@ public class completeProfile extends AppCompatActivity {
     }
 
     private void uploadinfo() {
-        final ProgressDialog progressDialog=new ProgressDialog(this);
+        final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setMessage("Uploading Information");
         progressDialog.show();
-        if(filePath!=null){
 
 
-            if(!TextUtils.isEmpty(nameg1.getText()) && !TextUtils.isEmpty(nameg2.getText()) && !TextUtils.isEmpty(nameg3.getText()) && !TextUtils.isEmpty(relationg1.getText()) && !TextUtils.isEmpty(relationg2.getText()) && !TextUtils.isEmpty(relationg3.getText()) && !TextUtils.isEmpty(phoneg1.getText()) && !TextUtils.isEmpty(phoneg2.getText()) && !TextUtils.isEmpty(phoneg3.getText()) && !TextUtils.isEmpty(emailg1.getText()) && !TextUtils.isEmpty(emailg3.getText()) && !TextUtils.isEmpty(emailg2.getText())){
+        if (!TextUtils.isEmpty(nameg1.getText()) && !TextUtils.isEmpty(nameg2.getText()) && !TextUtils.isEmpty(nameg3.getText()) && !TextUtils.isEmpty(relationg1.getText()) && !TextUtils.isEmpty(relationg2.getText()) && !TextUtils.isEmpty(relationg3.getText()) && !TextUtils.isEmpty(phoneg1.getText()) && !TextUtils.isEmpty(phoneg2.getText()) && !TextUtils.isEmpty(phoneg3.getText()) && !TextUtils.isEmpty(emailg1.getText()) && !TextUtils.isEmpty(emailg3.getText()) && !TextUtils.isEmpty(emailg2.getText())) {
 
-                DatabaseReference databaseUserRegister=database.getReferenceFromUrl("https://womensafety-20b61.firebaseio.com/user");
-                DatabaseReference child=databaseUserRegister.child(phonenumber.substring(1));
+            DatabaseReference databaseUserRegister = database.getReferenceFromUrl("https://womensafety-20b61.firebaseio.com/user");
+            DatabaseReference child = databaseUserRegister.child(phonenumber.substring(1));
 
-                        DatabaseReference child1=child.child("Guardian1");
-                        DatabaseReference child2=child1.child("Name");
-                        child2.setValue(nameg1.getText().toString());
+            DatabaseReference child1 = child.child("Guardian1");
+            DatabaseReference child2 = child1.child("Name");
+            child2.setValue(nameg1.getText().toString());
 
-                         child2=child1.child("Relation");
-                        child2.setValue(relationg1.getText().toString());
+            child2 = child1.child("Relation");
+            child2.setValue(relationg1.getText().toString());
 
-                         child2=child1.child("Phone");
-                        child2.setValue(phoneg1.getText().toString());
+            child2 = child1.child("Phone");
+            child2.setValue(phoneg1.getText().toString());
 
-                        child2=child1.child("Email");
-                        child2.setValue(emailg1.getText().toString());
+            child2 = child1.child("Email");
+            child2.setValue(emailg1.getText().toString());
 
-                        DatabaseReference child3=child.child("Guardian2");
-                        DatabaseReference child4=child3.child("Name");
-                        child4.setValue(nameg2.getText().toString());
+            DatabaseReference child3 = child.child("Guardian2");
+            DatabaseReference child4 = child3.child("Name");
+            child4.setValue(nameg2.getText().toString());
 
-                        child4=child3.child("Relation");
-                        child4.setValue(relationg2.getText().toString());
+            child4 = child3.child("Relation");
+            child4.setValue(relationg2.getText().toString());
 
-                        child4=child3.child("Phone");
-                        child4.setValue(phoneg2.getText().toString());
+            child4 = child3.child("Phone");
+            child4.setValue(phoneg2.getText().toString());
 
-                        child4=child3.child("Email");
-                        child4.setValue(emailg2.getText().toString());
-
-
-                        DatabaseReference child5=child.child("Guardian3");
-                        DatabaseReference child6=child5.child("Name");
-                        child6.setValue(nameg3.getText().toString());
-
-                        child6=child5.child("Relation");
-                        child6.setValue(relationg3.getText().toString());
-
-                        child6=child5.child("Phone");
-                        child6.setValue(phoneg3.getText().toString());
-
-                        child6=child5.child("Email");
-                        child6.setValue(emailg3.getText().toString());
-
-                        child6=child.child("Profile Updates");
-                        child6.setValue("YES");
+            child4 = child3.child("Email");
+            child4.setValue(emailg2.getText().toString());
 
 
+            DatabaseReference child5 = child.child("Guardian3");
+            DatabaseReference child6 = child5.child("Name");
+            child6.setValue(nameg3.getText().toString());
+
+            child6 = child5.child("Relation");
+            child6.setValue(relationg3.getText().toString());
+
+            child6 = child5.child("Phone");
+            child6.setValue(phoneg3.getText().toString());
+
+            child6 = child5.child("Email");
+            child6.setValue(emailg3.getText().toString());
+
+            child6 = child.child("Profile Updates");
+            child6.setValue("YES");
 
 
-                        child.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if(dataSnapshot.child("Profile Updates").getValue(String.class).equals("YES")){
-                                    progressDialog.cancel();
-                                    Intent i =new Intent(completeProfile.this,dashboardActivity.class);
-                                    startActivity(i);
-                                    finish();
-                                }
+            child.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.child("Profile Updates").getValue(String.class).equals("YES")) {
+                        progressDialog.cancel();
+                        Intent i = new Intent(completeProfile.this, dashboardActivity.class);
+                        i.putExtra("g1phone1", dataSnapshot.child("Guardian1").child("Phone").getValue(String.class).toString());
+                        i.putExtra("g1phone2", dataSnapshot.child("Guardian2").child("Phone").getValue(String.class).toString());
+                        i.putExtra("g1phone3", dataSnapshot.child("Guardian3").child("Phone").getValue(String.class).toString());
+                        i.putExtra("g1email1", dataSnapshot.child("Guardian1").child("Email").getValue(String.class).toString());
+                        i.putExtra("g1email2", dataSnapshot.child("Guardian2").child("Email").getValue(String.class).toString());
+                        i.putExtra("g1email3", dataSnapshot.child("Guardian3").child("Email").getValue(String.class).toString());
+                        startActivity(i);
+                        finish();
+                    }
 
-                            }
+                }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                            }
-                        });
-
-
+                }
+            });
 
 
-
-
-
-            }
-            else{
-                Toast.makeText(this,"Please Enter All The Entries",Toast.LENGTH_LONG).show();
-progressDialog.cancel();
-            }
-
-        }
-        else{
-            System.out.println("upload image first");
-        progressDialog.cancel();
+        } else {
+            Toast.makeText(this, "Please Enter All The Entries", Toast.LENGTH_LONG).show();
+            progressDialog.cancel();
         }
 
     }
+
+
 
     private void chooseImage() {
             Intent intent = new Intent();

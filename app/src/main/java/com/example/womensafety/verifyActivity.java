@@ -132,26 +132,44 @@ public class verifyActivity extends AppCompatActivity {
         child.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.child("Profile Updates").getValue(String.class).equals("YES")){
-                    progressDialog.cancel();
-                    Intent i =new Intent(verifyActivity.this,dashboardActivity.class);
-                    startActivity(i);
-                    finish();
+                if(dataSnapshot.hasChild("Profile Updates")) {
+                    if (dataSnapshot.child("Profile Updates").getValue(String.class).equals("YES")) {
+                        progressDialog.cancel();
+                        Intent i = new Intent(verifyActivity.this, dashboardActivity.class);
+                        i.putExtra("g1phone1", dataSnapshot.child("Guardian1").child("Phone").getValue(String.class).toString());
+                        i.putExtra("g1phone2", dataSnapshot.child("Guardian2").child("Phone").getValue(String.class).toString());
+                        i.putExtra("g1phone3", dataSnapshot.child("Guardian3").child("Phone").getValue(String.class).toString());
+
+                        i.putExtra("g1email1", dataSnapshot.child("Guardian1").child("Email").getValue(String.class).toString());
+                        i.putExtra("g1email2", dataSnapshot.child("Guardian2").child("Email").getValue(String.class).toString());
+                        i.putExtra("g1email3", dataSnapshot.child("Guardian3").child("Email").getValue(String.class).toString());
+
+                        startActivity(i);
+                        finish();
+                    } else {
+
+                        progressDialog.cancel();
+                        Intent i = new Intent(verifyActivity.this, completeProfile.class);
+                        startActivity(i);
+                        finish();
+
+
+                    }
                 }
                 else{
-
                     progressDialog.cancel();
-                    Intent i =new Intent(verifyActivity.this,completeProfile.class);
+                    Intent i = new Intent(verifyActivity.this, signupActivity.class);
                     startActivity(i);
                     finish();
 
-
                 }
+
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+
 
             }
         });

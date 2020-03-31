@@ -46,11 +46,9 @@ ProgressDialog progressDialog;
         auth= FirebaseAuth.getInstance();
         FirebaseUser firebaseUser=auth.getCurrentUser();
 
-        if(firebaseUser==null) {
-progressDialog.show();
+        if(firebaseUser!=null) {
+        progressDialog.show();
         check();
-
-
         }
 
 
@@ -66,7 +64,7 @@ progressDialog.show();
 
                    }
                    else{
-                       System.out.println("hasgjdhgjas");
+                       Toast.makeText(getApplicationContext(),"please enter the valid phone number",Toast.LENGTH_LONG).show();
                    }
 
 
@@ -82,10 +80,10 @@ progressDialog.show();
     }
 
     private void check() {
-      //  String phonenumber =auth.getCurrentUser().getPhoneNumber();
+       String phonenumber =auth.getCurrentUser().getPhoneNumber();
 
         DatabaseReference databaseUserRegister=database.getReferenceFromUrl("https://womensafety-20b61.firebaseio.com/user");
-        DatabaseReference child=databaseUserRegister.child("+918223873564".substring(1));
+        DatabaseReference child=databaseUserRegister.child(phonenumber.substring(1));
 
 
         child.addValueEventListener(new ValueEventListener() {
@@ -97,6 +95,15 @@ progressDialog.show();
                 if(dataSnapshot.child("Profile Updates").getValue(String.class).equals("YES")){
                     progressDialog.cancel();
                     Intent i =new Intent(loginActivity.this,dashboardActivity.class);
+                    i.putExtra("g1phone1",dataSnapshot.child("Guardian1").child("Phone").getValue(String.class).toString());
+                    i.putExtra("g1phone2",dataSnapshot.child("Guardian2").child("Phone").getValue(String.class).toString());
+                    i.putExtra("g1phone3",dataSnapshot.child("Guardian3").child("Phone").getValue(String.class).toString());
+
+                    i.putExtra("g1email1",dataSnapshot.child("Guardian1").child("Email").getValue(String.class).toString());
+                    i.putExtra("g1email2",dataSnapshot.child("Guardian2").child("Email").getValue(String.class).toString());
+                    i.putExtra("g1email3",dataSnapshot.child("Guardian3").child("Email").getValue(String.class).toString());
+
+
                     startActivity(i);
                     finish();
                 }

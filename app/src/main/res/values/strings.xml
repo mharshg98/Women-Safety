@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">WomenSafety</string>
+
+
+
+    <string-array name="pref_pref_send_call_guardian_values">
+        <item>Guardian 1</item>
+        <item>Guardian 2</item>
+        <item>Guardian 3</item>
+    </string-array>
+
+    <string-array name="pref_pref_send_sms_sim_values">
+        <item>SIM 1</item>
+        <item>SIM 2</item>
+        <item>Both</item>
+    </string-array>
+
 </resources>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="CALL">
+
+        <ListPreference
+
+            android:key="pref_Select_guardian_to_call"
+            android:title="Select Guardian"
+            android:entries="@array/pref_pref_send_call_guardian_values"
+            android:entryValues="@array/pref_pref_send_call_guardian_values"
+            android:defaultValue="Guardian 1"
+            android:summary="Select Guardian to call"
+
+            />
+
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:title="SMS ">
+
+        <SwitchPreference
+            android:key="pref_send_location_with_sms"
+            android:title="Send Location"
+
+            android:summary="Send location with sms"
+            android:defaultValue="true"
+            />
+
+        <ListPreference
+
+            android:key="pref_send_sms_sim"
+            android:title="SIM"
+            android:entries="@array/pref_pref_send_sms_sim_values"
+            android:entryValues="@array/pref_pref_send_sms_sim_values"
+            android:defaultValue="SIM 1"
+            android:summary="Select sim to send SMS"
+            />
+
+
+    </PreferenceCategory>
+
+
+
+    <PreferenceCategory
+        android:title="Guardian 1">
+
+        <EditTextPreference
+            android:key="pref_guadian1_mobile"
+            android:title="Mobile"
+            android:summary=""
+            />
+        <EditTextPreference
+            android:key="pref_guadian1_Email"
+            android:title="Email"
+            android:summary=""
+
+            />
+
+    </PreferenceCategory>
+
+        <PreferenceCategory
+            android:title="Guardian 2">
+
+            <EditTextPreference
+                android:key="pref_guadian2_mobile"
+                android:title="Mobile"
+                android:summary=""
+                />
+
+            <EditTextPreference
+                android:key="pref_guadian2_Email"
+                android:title="Email"
+                android:summary=""
+                />
+
+        </PreferenceCategory>
+
+        <PreferenceCategory
+            android:title="Guardian 3">
+
+            <EditTextPreference
+                android:key="pref_guadian3_mobile"
+                android:title="Mobile"
+                />
+            <EditTextPreference
+                android:key="pref_guadian3_Email"
+                android:title="Email"
+                />
+
+        </PreferenceCategory>
+
+
+
+
+</PreferenceScreen>
