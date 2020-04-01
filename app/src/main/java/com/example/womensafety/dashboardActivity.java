@@ -13,6 +13,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -51,7 +53,9 @@ public class dashboardActivity extends AppCompatActivity implements LocationList
     FirebaseAuth firebaseAuth;
     String userphoneno;
     ImageButton emergency;
-
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
+    private ShakeDetecter mShakeDetector;
     private final String LIST_WHICH_GUARDIAN_TO_CALL ="pref_Select_guardian_to_call";
     private final String SWITCH_SEND_LOCATION ="pref_send_location_with_sms";
     private final String LIST_SELECT_SMS_SIM ="pref_send_sms_sim";
@@ -65,6 +69,7 @@ public class dashboardActivity extends AppCompatActivity implements LocationList
     private final String GUARDIAN3_MOBILE ="pref_guadian3_mobile";
     private final String GUARDIAN3_EMAIL ="pref_guadian3_Email";
 
+    Boolean inproces=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +90,25 @@ public class dashboardActivity extends AppCompatActivity implements LocationList
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         emergency = (ImageButton) findViewById(R.id.emergency);
+
+        // ShakeDetector initialization
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = mSensorManager
+                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mShakeDetector = new ShakeDetecter();
+        mShakeDetector.setOnShakeListener(new ShakeDetecter.OnShakeListener() {
+
+            @Override
+            public void onShake(int count) {
+
+                System.out.println("phone shaked"+count);
+               if(inproces==false){
+                   Toast.makeText(getApplicationContext(),"phone shaked"+count,Toast.LENGTH_LONG).show();
+
+                doallthecallandmessage();}
+            }
+        });
+
 
         if (ContextCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
@@ -110,6 +134,8 @@ public class dashboardActivity extends AppCompatActivity implements LocationList
 
         }
 
+
+
         emergency.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,6 +147,7 @@ public class dashboardActivity extends AppCompatActivity implements LocationList
     }
 
     private void doallthecallandmessage() {
+        inproces=true;
         SharedPreferences sharedPreferences=PreferenceManager.getDefaultSharedPreferences(this);
         SmsManager smsManager = SmsManager.getSmsManagerForSubscriptionId(subscriptionInfo1.getSubscriptionId());
         SmsManager smsManager1 = SmsManager.getSmsManagerForSubscriptionId(subscriptionInfo2.getSubscriptionId());
@@ -173,6 +200,9 @@ public class dashboardActivity extends AppCompatActivity implements LocationList
                     else{
                         if(callselection.equals("Guardian 2")){
                             if (checkSelfPermission(Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+
+
+
                                 Intent callIntent = new Intent(Intent.ACTION_CALL);
                                 callIntent.setData(Uri.parse("tel:" + gph2));
                                 startActivity(callIntent);
@@ -337,7 +367,7 @@ public class dashboardActivity extends AppCompatActivity implements LocationList
 
 
         }
-
+inproces=false;
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -456,5 +486,19 @@ public class dashboardActivity extends AppCompatActivity implements LocationList
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Add the following line to register the Session Manager Listener onResume
+        mSensorManager.registerListener(mShakeDetector, mAccelerometer,	SensorManager.SENSOR_DELAY_UI);
+    }
+
+    @Override
+    public void onPause() {
+        // Add the following line to unregister the Sensor Manager onPause
+        mSensorManager.unregisterListener(mShakeDetector);
+        super.onPause();
     }
 }
